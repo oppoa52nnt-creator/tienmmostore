@@ -3,207 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiến Store - Hệ Thống Cung Cấp Tài Khoản Số</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>SNT STORE - Chuyên cung Cấp tài Khoản Vip Các Nền Tảng</title>
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .glass-effect { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .btn-active:active { transform: scale(0.95); transition: 0.1s; }
-        #paymentModal, #adminModal { display: none; }
-        .tpbank-color { background: linear-gradient(135deg, #5b2d86 0%, #ff8200 100%); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; color: #333; overflow-x: hidden; }
+        nav { display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 15px 10%; position: sticky; top: 0; z-index: 3000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.6rem; font-weight: bold; color: #ff4757; }
+        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+        .nav-links a { color: #333; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .nav-links a:hover { color: #ff4757; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
+        .menu-toggle span { display: block; width: 25px; height: 3px; background: #333; border-radius: 2px; }
+        .container { padding: 40px 10%; min-height: 80vh; }
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 1.8rem; }
+        .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        .platform-card { background: white; border-radius: 15px; padding: 25px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .platform-card:hover { transform: translateY(-5px); border-color: #ff4757; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .platform-card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 15px; border-radius: 12px; }
+        .platform-card p { font-weight: bold; margin: 0; font-size: 1.1rem; }
+        
+        .modal { display: none; position: fixed; z-index: 4000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .modal-content { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
+        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 28px; cursor: pointer; color: #aaa; }
+        
+        .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        .sub-info h4 { margin: 0; font-size: 14px; padding-right: 5px; }
+        .sub-info span { color: #ff4757; font-weight: bold; font-size: 14px; }
+        
+        .banner-item { border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px; overflow: hidden; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .banner-img { width: 100%; height: auto; display: block; border-bottom: 1px solid #eee; }
+        .banner-desc { padding: 12px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
 
-        /* TỐI ƯU CHO MOBILE */
-        @media (max-width: 640px) {
-            /* Biến bảng thành dạng thẻ */
-            table, thead, tbody, th, td, tr { display: block; }
-            thead { display: none; } /* Ẩn tiêu đề bảng trên mobile */
-            tr {
-                margin-bottom: 15px;
-                border: 1px solid #f3f4f6;
-                padding: 15px;
-                border-radius: 20px;
-                background: #fff;
-            }
-            td {
-                text-align: left !important;
-                padding: 5px 0 !important;
-                border: none !important;
-            }
-            .price-mobile { 
-                font-size: 1.5rem !important; 
-                display: block; 
-                margin: 10px 0;
-            }
-            .btn-mobile {
-                width: 100%;
-                margin-top: 10px;
-                text-align: center !important;
-            }
+        .buy-now-btn { background: #222; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; min-width: 60px; }
+        .buy-now-btn:hover { background: #ff4757; }
+        .bank-box { background: #fff5f5; padding: 15px; border-radius: 10px; text-align: left; margin: 15px 0; border: 1px dashed #ff4757; }
+        .input-style { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-confirm { background: #ff4757; color: white; border: none; padding: 13px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; }
+            .menu-toggle { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 20px 0; box-shadow: 0 5px 10px rgba(0,0,0,0.1); gap: 15px; text-align: center; }
+            .nav-links.active { display: flex; }
+            .container { padding: 25px 5%; }
+            .platform-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
-    <header class="sticky top-0 z-50 glass-effect border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-purple-700 rounded-lg flex items-center justify-center shadow-lg">
-                    <span class="text-white font-bold text-xl">T</span>
-                </div>
-                <span class="text-lg md:text-xl font-extrabold tracking-tight text-gray-800 uppercase">TIẾN<span class="text-orange-500 italic text-sm ml-1">Digital</span></span>
-            </div>
-            
-            <div class="flex items-center space-x-3 text-[10px] md:text-sm font-bold">
-                <button onclick="openAdmin()" class="text-gray-600 hover:text-purple-600 transition uppercase">ADMIN</button>
-                <a href="https://zalo.me/0966181924" target="_blank" class="bg-purple-100 text-purple-700 px-3 py-2 rounded-full hover:bg-purple-200 transition">HỖ TRỢ</a>
-            </div>
+    <nav>
+        <div class="logo">SNT STORE</div>
+        <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="menuList">
+            <li><a onclick="showPage('home')">Trang Chủ</a></li>
+            <li><a onclick="showPage('support')">Hỗ Trợ</a></li>
+        </ul>
+    </nav>
+
+    <div id="home" class="container">
+        <h2 class="section-title">Danh Mục Sản Phẩm</h2>
+        <div class="platform-grid" id="mainGrid"></div>
+    </div>
+
+    <div id="support" class="container" style="display:none; text-align: center;">
+        <h2 class="section-title">Liên Hệ Admin</h2>
+        <div style="max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <a href="https://zalo.me/0966181924" style="display:block; background:#0084ff; color:white; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px;">Zalo CSKH</a>
+            <a href="https://facebook.com/ntien210" style="display:block; background:#3b5998; color:white; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold;">Facebook CSKH</a>
         </div>
-    </header>
+    </div>
 
-    <section class="py-12 md:py-16 px-4 bg-white">
-        <div class="max-w-7xl mx-auto text-center space-y-6">
-            <span class="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest">Giao dịch uy tín 100%</span>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight">Hệ thống <span class="text-purple-600">Tài Khoản Số</span></h1>
-            <p class="text-gray-500 text-sm md:text-lg max-w-3xl mx-auto font-medium leading-relaxed">
-                <b class="text-purple-700">TienMMo.Store</b> cung cấp giải pháp tài khoản số, dịch vụ giải trí Premium. Chúng tôi cam kết chất lượng cao, giá tối ưu và bảo hành tận tâm.
+    <div id="modal-sub" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAllModals()">&times;</span>
+            <h3 id="display-platform-name">Gói dịch vụ</h3>
+            <div id="sub-list-container"></div>
+        </div>
+    </div>
+
+    <div id="modal-pay" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAllModals()">&times;</span>
+            <h3>Thanh Toán Đơn Hàng</h3>
+            <div class="bank-box">
+                <p>Ngân hàng: <b>TP Bank</b></p>
+                <p>STK: <b style="color:#ff4757; font-size: 20px;">94476666886</b></p>
+                <p>Chủ TK: <b>NGUYEN NHAT TIEN</b></p>
+                <p style="margin-top:10px; border-top: 1px dashed #ccc; padding-top:10px">Số tiền cần chuyển: <b id="display-pay-price" style="color:#ff4757; font-size: 18px;">0đ</b></p>
+            </div>
+            <p style="color: #ff4757; font-size: 11px; font-style: italic; text-align: left; padding: 0 10px;">
+                * Chúng tôi cần thông tin từ bạn để hỗ trợ và đối chiếu sản phẩm khi có yêu cầu từ Cục An Ninh Mạng. SNT STORE cam kết bảo mật thông tin!
             </p>
-            <div class="flex justify-center">
-                 <a href="#products" class="bg-purple-700 text-white px-8 py-3 rounded-2xl font-bold hover:bg-purple-800 transition shadow-xl shadow-purple-200 btn-active">MUA NGAY</a>
-            </div>
-        </div>
-    </section>
-
-    <main id="products" class="max-w-7xl mx-auto py-8 px-4">
-        <div class="md:bg-white md:rounded-3xl md:shadow-2xl md:border md:border-gray-200">
-            <div class="overflow-hidden">
-                <table class="w-full text-left">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest">Dịch vụ</th>
-                            <th class="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest text-center">Giá ưu đãi</th>
-                            <th class="px-6 py-5 text-xs font-black text-gray-400 uppercase tracking-widest text-right">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <tr class="hover:bg-purple-50/30 transition">
-                            <td class="px-6 py-6">
-                                <p class="font-bold text-lg text-gray-900">YouTube Premium 1 tháng</p>
-                                <p class="text-xs text-gray-400 font-medium italic">Gói ổn định - Không quảng cáo- phát nền</p>
-                            </td>
-                            <td class="px-6 py-6 text-center">
-                                <span class="text-2xl font-black text-red-500 price-mobile">20.000đ</span>
-                            </td>
-                            <td class="px-6 py-6 text-right">
-                                <button onclick="openPayment('YOUTUBE-20-1T', 20000)" class="bg-purple-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-800 btn-active shadow-lg btn-mobile">MUA NGAY</button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-purple-50/30 transition">
-                            <td class="px-6 py-6">
-                                <p class="font-bold text-lg text-gray-900">Capcut Pro 1 tháng</p>
-                                <p class="text-xs text-gray-400 font-medium italic">Acc cấp - 2 Thiết bị | Kho: 12</p>
-                            </td>
-                            <td class="px-6 py-6 text-center">
-                                <span class="text-2xl font-black text-red-500 price-mobile">29.000đ</span>
-                            </td>
-                            <td class="px-6 py-6 text-right">
-                                <button onclick="openPayment('CAPCUT-35-35N', 35000)" class="bg-purple-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-800 btn-active shadow-lg btn-mobile">MUA NGAY</button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-purple-50/30 transition">
-                            <td class="px-6 py-6">
-                                <p class="font-bold text-lg text-gray-900">Locket Gold Vĩnh Viễn</p>
-                                <p class="text-xs text-gray-400 font-medium italic">Bản quyền vĩnh viễn - Full ADR</p>
-                            </td>
-                            <td class="px-6 py-6 text-center">
-                                <span class="text-2xl font-black text-red-500 price-mobile">20.000đ</span>
-                            </td>
-                            <td class="px-6 py-6 text-right">
-                                <button onclick="openPayment('LKG-20-VV', 20000)" class="bg-purple-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-800 btn-active shadow-lg btn-mobile">MUA NGAY</button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-purple-50/30 transition">
-                            <td class="px-6 py-6">
-                                <p class="font-bold text-lg text-gray-900">Netflix Premium 1 tháng</p>
-                                <p class="text-xs text-gray-400 font-medium italic">Chất lượng 4K - Acc Cấp</p>
-                            </td>
-                            <td class="px-6 py-6 text-center">
-                                <span class="text-2xl font-black text-red-500 price-mobile">65.000đ</span>
-                            </td>
-                            <td class="px-6 py-6 text-right">
-                                <button onclick="openPayment('NFL-65-1T', 65000)" class="bg-purple-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-800 btn-active shadow-lg btn-mobile">MUA NGAY</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <div id="adminModal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="bg-white rounded-[2rem] w-full max-w-sm overflow-hidden shadow-2xl">
-            <div class="bg-gray-900 p-6 text-white flex justify-between items-center">
-                <span class="font-bold uppercase tracking-widest text-sm">Thông tin Admin</span>
-                <button onclick="closeAdmin()" class="text-3xl font-light hover:text-red-400">&times;</button>
-            </div>
-            <div class="p-6 space-y-3">
-                <a href="https://t.me/ntienz8386" target="_blank" class="flex items-center justify-between p-4 bg-blue-50 rounded-2xl border border-blue-100 font-bold text-blue-700">
-                    Telegram <span class="text-gray-500 font-normal">@ntienz8386</span>
-                </a>
-                <a href="https://www.facebook.com/ntien210" target="_blank" class="flex items-center justify-between p-4 bg-blue-600 text-white rounded-2xl font-bold">
-                    Facebook <span class="text-xs opacity-80 uppercase">Kết bạn</span>
-                </a>
-                <a href="https://subsalent.fun" target="_blank" class="block p-4 bg-purple-50 rounded-2xl text-center font-bold text-purple-800">
-                    🚀 subsalent.fun
-                </a>
-            </div>
+            <p style="color: #28a745; font-weight: bold; font-size: 13px; margin: 10px 0;">
+                📸 Vui lòng chụp màn hình bill chuyển khoản!
+            </p>
+            <input type="text" id="cust-name" class="input-style" placeholder="Họ và tên của bạn">
+            <input type="text" id="cust-info" class="input-style" placeholder="SĐT Zalo hoặc Link Facebook">
+            <button class="btn-confirm" onclick="handleFinish()">Tôi đã thanh toán</button>
         </div>
     </div>
 
-    <div id="paymentModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="bg-white rounded-[2rem] w-full max-w-md overflow-hidden shadow-2xl">
-            <div class="tpbank-color p-5 text-white flex justify-between items-center">
-                <span class="font-bold text-sm">THANH TOÁN QUA TPBANK</span>
-                <button onclick="closePayment()" class="text-3xl font-light">&times;</button>
-            </div>
-            <div class="p-6 text-center space-y-4">
-                <div class="flex justify-center">
-                    <img id="qrImg" src="" alt="QR" class="w-48 h-48 border-4 border-purple-50 rounded-xl">
-                </div>
-                <div class="bg-purple-50 p-4 rounded-xl text-left text-xs space-y-1">
-                    <p class="flex justify-between"><span>Số Tài Khoản:</span> <b>9447 6666 886</b></p>
-                    <p class="flex justify-between border-t border-purple-100 pt-1 mt-1"><span>Số tiền:</span> <b id="payAmount" class="text-red-600 text-lg"></b></p>
-                </div>
-                <div class="space-y-2">
-                    <input id="orderCodeInput" readonly class="w-full bg-gray-50 border border-purple-200 text-purple-700 font-mono font-bold p-3 rounded-xl text-center" value="">
-                    <button onclick="copyOrderCode()" class="w-full bg-purple-700 text-white py-3 rounded-xl font-bold btn-active">COPY MÃ ĐƠN HÀNG</button>
-                </div>
-                <a id="zaloLink" href="#" target="_blank" class="block w-full tpbank-color text-white py-4 rounded-xl font-bold btn-active">XÁC NHẬN QUA ZALO</a>
-            </div>
+    <div id="modal-final" class="modal">
+        <div class="modal-content">
+            <h3>Vui Lòng Sao Chép toàn Bộ Thông Tin bên Dưới Gửi Cho Admin Để Nhận Hàng</h3>
+            <textarea id="copy-box" class="input-style" style="height: 120px;" readonly></textarea>
+            <button class="btn-confirm" onclick="copyAndGoToZalo()">SAO CHÉP & GỬI ZALO</button>
         </div>
     </div>
-
-    <footer class="bg-white py-10 border-t border-gray-100 text-center">
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">© 2026 TIẾN DIGITAL - UY TÍN TẠO NIỀM TIN</p>
-    </footer>
 
     <script>
-        function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
-        function openPayment(code, price) {
-            document.getElementById('payAmount').innerText = price.toLocaleString() + "đ";
-            document.getElementById('orderCodeInput').value = code;
-            document.getElementById('qrImg').src = `https://img.vietqr.io/image/TPB-94476666886-compact.png?amount=${price}&addInfo=${code}`;
-            document.getElementById('zaloLink').href = `https://zalo.me/0966181924?text=Mình chuyển khoản đơn ${code}`;
-            document.getElementById('paymentModal').style.display = 'flex';
+        const data = {
+            "YouTube": {
+                img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
+                items: [
+                    { n: "YouTube Premium 1 Tháng Acc Cấp", p: "25.000đ" },
+                    { n: "YouTube Premium 3 Tháng acc cấp", p: "62.000đ" },
+                    { n: "YouTube Premium Dùng Chung 1 Năm", p: "250.000đ" }
+                ]
+            },
+            "ChatGPT": {
+                img: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+                items: [
+                    { n: "CHAT GPT PLUS 1 THÁNG ACC CẤP RIÊNG", p: "25.000đ" },
+                    { n: "CHAT GPT PLUS 1 THÁNG NÂNG CHÍNH CHỦ", p: "30.000đ" }
+                ]
+            },
+            "CapCut": {
+                img: "https://capkcutapk.com/wp-content/uploads/2024/12/capcut-pro-apk.png",
+                items: [
+                    { n: "CAPCUT TEAM RENEW 35 NGÀY", p: "35.000đ" },
+                    { n: "CAPCUT PRO TEAM 6 THÁNG", p: "192.847đ" }
+                ]
+            },
+            "Netflix": {
+                img: "https://static.vecteezy.com/system/resources/previews/017/396/814/original/netflix-mobile-application-logo-free-png.png",
+                items: [
+                    { n: "NETFLIX DÙNG CHUNG 1 THÁNG", p: "48.000đ" },
+                    { n: "NETFLIX SLOT RIÊNG 1 THÁNG", p: "74.920đ" },
+                    { n: "NETFLIX 1 NĂM VIP PRO", p: "365.240đ" }
+                ]
+            },
+            "Locket Gold": {
+                img: "https://tse2.mm.bing.net/th/id/OIP.f6h2U3aSyLuCygeLVaIqIQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+                items: [
+                    { n: "Up Locket Gold Android (APK)", p: "35.000đ" },
+                    { n: "Up Locket Gold iOS (Đang Phát Triển)", p: "100.000.000đ" }
+                ]
+            },
+            "Gemini": {
+                img: "https://tse4.mm.bing.net/th/id/OIP.umfUzNjKLT1bMF25L3QPoAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+                items: [
+                    { n: "LINK NHẬN GEMINI PRO HẠN 4 THÁNG", p: "30.000đ" },
+                    { n: "GEMINI PRO HẠN 1 NĂM - CHÍNH CHỦ", p: "89.999đ" }
+                ]
+            },
+            "Thiết Kế Banner": {
+                img: "https://i.ibb.co/5g72Rzv3/7ca29a99-9c4b-4819-8fde-5b6ce723ae4c.png",
+                isGallery: true, 
+                items: [
+                    { n: "Banner Website Tương Tác", p: "30.000đ", thumb: "https://i.ibb.co/DP40dwWp/IMG-9413.jpg" },
+                    { n: "Banner Website Đổi Thẻ", p: "30.000đ", thumb: "https://i.ibb.co/DH8b7LrN/IMG-8911.jpg" },
+                    { n: "Banner Phù Hợp All Website", p: "30.000đ", thumb: "https://i.ibb.co/wNTV9nz5/IMG-8723.jpg" },
+                    { n: "QR Code Bank 18+ M1", p: "50.000đ", thumb: "https://i.ibb.co/gFP0ThNj/QR-35K.jpg" },
+                    { n: "QR Code Bank 18+ M2", p: "45.000đ", thumb: "https://i.ibb.co/0R5Bh1qn/IMG-2759.jpg" },
+                    { n: "QR Code Bank 1", p: "35.000đ", thumb: "https://i.ibb.co/KjKndry3/IMG-0118.jpg" },
+                    { n: "QR Code Bank 2", p: "40.000đ", thumb: "https://i.ibb.co/vx02fysv/IMG-0181.jpg" },
+                    { n: "Cọc GDV 1", p: "40.000đ", thumb: "https://i.ibb.co/Xk6VKZgJ/IMG-6255.jpg" },
+                    { n: "Cọc GDV 2", p: "45.000đ", thumb: "https://i.ibb.co/Y4Wh3dss/BB261-A73-0-E85-4-DEA-8-D41-115-EDE5-E5-F8-A.jpg" },
+                    { n: "Cọc GDV 3", p: "32.000đ", thumb: "https://i.ibb.co/tTRSvbcN/IMG-1817.jpg" },
+                    { n: "Ảnh Bìa M1", p: "30.000đ", thumb: "https://i.ibb.co/gFS4Dztn/IMG-0156.jpg" },
+                    { n: "Ảnh Bìa M2", p: "30.000đ", thumb: "https://i.ibb.co/1Gg2Lg52/IMG-8031.jpg" }
+                ]
+            },
+            "Roblox": {
+                img: "https://tse1.mm.bing.net/th/id/OIP.G5ARJYhMzWhy8VF2VDuUbwHaHa?w=900&h=900&rs=1&pid=ImgDetMain&o=7&rm=3",
+                items: [
+                    { n: "GOD LV 2800  Trái Ác Quỷ Ngẫu Nhiên", p: "15.000đ" },
+                    { n: "GOD LV 2800  Trái GAS Trong Rương", p: "30.000đ" },
+                    { n: "GOD LV 2800  Trái TREX Trong Rương", p: "30.000đ" },
+                    { n: "GOD LV 2800  Trái TREX Trong Rương", p: "30.000đ" },
+                    { n: "GOD LV 2800  Trái  MAMMOTH Trong Rương", p: "30.000đ" },
+                    { n: "GOD LV 2800  Trái TREX Trong Rương", p: "30.000đ" },
+                ]
+            }
+        };
+
+        let tempName = ""; let tempPrice = "";
+        const grid = document.getElementById('mainGrid');
+        for (let key in data) {
+            grid.innerHTML += `<div class="platform-card" onclick="openSub('${key}')"><img src="${data[key].img}"><p>${key}</p></div>`;
         }
-        function closePayment() { document.getElementById('paymentModal').style.display = 'none'; }
-        function copyOrderCode() {
-            const copyText = document.getElementById("orderCodeInput");
-            copyText.select();
-            navigator.clipboard.writeText(copyText.value);
-            alert("Đã copy: " + copyText.value);
+
+        function toggleMenu() { document.getElementById('menuList').classList.toggle('active'); }
+        function showPage(id) {
+            document.getElementById('home').style.display = (id==='home'?'block':'none');
+            document.getElementById('support').style.display = (id==='support'?'block':'none');
+            document.getElementById('menuList').classList.remove('active');
+            window.scrollTo(0,0);
         }
+
+        function openSub(key) {
+            const list = document.getElementById('sub-list-container');
+            document.getElementById('display-platform-name').innerText = "Gói " + key;
+            list.innerHTML = "";
+            const platform = data[key];
+            platform.items.forEach(item => {
+                if (platform.isGallery) {
+                    list.innerHTML += `<div class="banner-item"><img src="${item.thumb}" class="banner-img"><div class="banner-desc"><div><h4>${item.n}</h4><span>${item.p}</span></div><button class="buy-now-btn" onclick="openPay('${item.n}', '${item.p}')">Chọn</button></div></div>`;
+                } else {
+                    list.innerHTML += `<div class="sub-item"><div class="sub-info"><h4>${item.n}</h4><span>${item.p}</span></div><button class="buy-now-btn" onclick="openPay('${item.n}', '${item.p}')">Mua</button></div>`;
+                }
+            });
+            document.getElementById('modal-sub').style.display = 'flex';
+        }
+
+        function openPay(name, price) {
+            tempName = name; tempPrice = price;
+            // Dòng này giúp hiển thị giá tiền đúng sản phẩm khách chọn
+            document.getElementById('display-pay-price').innerText = price;
+            document.getElementById('modal-sub').style.display = 'none';
+            document.getElementById('modal-pay').style.display = 'flex';
+        }
+
+        function handleFinish() {
+            const cName = document.getElementById('cust-name').value;
+            const cInfo = document.getElementById('cust-info').value;
+            if(!cName || !cInfo) return alert("Vui lòng điền đủ thông tin!");
+            const finalStr = `--- ĐƠN HÀNG SNT STORE ---\nSản phẩm: ${tempName}\nGiá: ${tempPrice}\nKhách: ${cName}\nLiên hệ: ${cInfo}\nTrạng thái: Đã CK (Vui lòng gửi kèm ảnh bill)`;
+            document.getElementById('copy-box').value = finalStr;
+            document.getElementById('modal-pay').style.display = 'none';
+            document.getElementById('modal-final').style.display = 'flex';
+        }
+
+        function copyAndGoToZalo() {
+            const box = document.getElementById('copy-box');
+            box.select(); document.execCommand('copy');
+            alert("Đã copy đơn hàng! Đang chuyển sang Zalo Admin...");
+            setTimeout(() => { window.location.href = "https://zalo.me/0966181924"; }, 800);
+        }
+
+        function closeAllModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+        window.onclick = function(e) { if (e.target.className === 'modal') closeAllModals(); }
     </script>
 </body>
 </html>
