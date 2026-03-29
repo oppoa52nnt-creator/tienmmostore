@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+</html<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -180,16 +181,14 @@
                 items: [
                     { n: "GOD LV 2800  Trái Ác Quỷ Ngẫu Nhiên", p: "15.000đ" },
                     { n: "GOD LV 2800  Trái GAS Trong Rương", p: "30.000đ" },
-                    { n: "GOD LV 2800  Trái TREX Trong Rương", p: "30.000đ" },
-                    { n: "GOD LV 2800  Trái TREX Trong Rương", p: "30.000đ" },
+                    { n: "GOD LV 2800  Trái T-REX Trong Rương", p: "30.000đ" },
                     { n: "GOD LV 2800  Trái  MAMMOTH Trong Rương", p: "30.000đ" },
-                    { n: "GOD LV 2800  Trái TREX Trong Rương", p: "30.000đ" },
                 ]
             },
             "Auto MXH": {
                 img: "https://i.ibb.co/mrJZKyGm/55355b4e-4aa8-4179-b3ff-77524ca8669b.png",
                 items: [
-                    { n: "Tích Xanh FB Acc Cấp", p: "529.000đ" },
+                    { n: "Tích Xanh Profile", p: "529.000đ" },
                     { n: "Tích Xanh Chính Chủ", p: "1.500.000đ" },
                     { n: "Mở Khóa Đình Chỉ 180 NGÀY", p: "500.000đ" },
                     { n: "Lấy lại Facebook Bị Hack (  có thiết bị đã đăng nhập và sử dụng thường xuyên trên 6 tháng. )", p: "600.000đ" },
@@ -206,6 +205,16 @@
                     { n: "Tut Đổi Tên Trước 60 Ngày", p: "329.000đ" },
                     { n: "Tut Mở Khóa 956", p: "600.000đ" },
                     { n: "Tut Mở Khóa 282", p: "380.000đ" },
+                ]
+            },
+            "Giao Dịch Trung Gian": {
+                img: "https://cdn-icons-png.flaticon.com/512/1611/1611179.png", 
+                items: [
+                    { n: "Phí GD dưới 100.000đ", p: "2.000đ" },
+                    { n: "Phí GD 100.000 - 250.000đ", p: "5.000đ" },
+                    { n: "Phí GD 250.000 - 500.000đ", p: "8.000đ" },
+                    { n: "Phí GD trên 500.000đ", p: "3% Giá Trị Giao Dịch" },
+            
                 ]
             }
         };
@@ -239,9 +248,41 @@
             document.getElementById('modal-sub').style.display = 'flex';
         }
 
-        function openPay(name, price) {
+       function openPay(name, price) {
+            const platformName = document.getElementById('display-platform-name').innerText;
+
+            // KIỂM TRA: Nếu khách đang bấm vào mục Giao Dịch Trung Gian
+            if (platformName.includes("Giao Dịch Trung Gian")) {
+                const list = document.getElementById('sub-list-container');
+                // Chèn bảng Điều khoản & 2 nút liên hệ vào chính cái Modal cũ
+                list.innerHTML = `
+                    <div style="padding: 15px; text-align: left; font-family: sans-serif;">
+                        <h3 style="text-align:center; color:#e67e22; margin-top:0;">🛡️ ĐIỀU KHOẢN GDTG</h3>
+                        <div style="background:#fff3e0; padding:10px; border-radius:8px; font-size:13px; color:#666; margin-bottom:15px; border-left:4px solid #e67e22;">
+                            <p style="margin:5px 0;">1. Admin chỉ giữ tiền, không bảo hành acc sau khi giao dịch hoàn tất.</p>
+                            <p style="margin:5px 0;">2. Bên mua check kỹ thông tin trước khi xác nhận để Admin giải ngân.</p>
+                            <p style="margin:5px 0;">3. Phí GDTG tính theo biểu phí niêm yết của SNT Store.</p>
+                            <p style="margin:5px 0; font-weight:bold; color:red;">* Cảnh Báo: Chỉ Giao Dịch Đúng Facebook Hoặc Zalo Admin Từ Liên Kết Trên Website</p>
+                        </div>
+                        
+                        <h4 style="text-align:center; font-size:14px; margin-bottom:10px;">Nếu Bạn Đồng Ý Với Điều Khaonr.Vui Lòng Liên Hệ:</h4>
+                        
+                        <a href="https://zalo.me/0966181924" target="_blank" 
+                           style="display:block; text-decoration:none; text-align:center; padding:12px; background:#0068ff; color:#fff; border-radius:8px; font-weight:bold; margin-bottom:10px;">
+                           💬 Zalo Admin GDTG
+                        </a>
+                        <a href="https://facebook.com/ntien210" target="_blank" 
+                           style="display:block; text-decoration:none; text-align:center; padding:12px; background:#1877f2; color:#fff; border-radius:8px; font-weight:bold;">
+                           👤 Facebook Admin GDTG
+                        </a>
+                        <button onclick="closeAllModals()" style="width:100%; margin-top:15px; background:none; border:none; color:#aaa; cursor:pointer; font-size:12px;">Quay lại</button>
+                    </div>
+                `;
+                return; // Dừng lại, không mở modal-pay
+            }
+
+            // CÁC MỤC KHÁC (YouTube, Netflix...): Chạy bình thường
             tempName = name; tempPrice = price;
-            // Dòng này giúp hiển thị giá tiền đúng sản phẩm khách chọn
             document.getElementById('display-pay-price').innerText = price;
             document.getElementById('modal-sub').style.display = 'none';
             document.getElementById('modal-pay').style.display = 'flex';
@@ -264,6 +305,8 @@
             setTimeout(() => { window.location.href = "https://zalo.me/0966181924"; }, 800);
         }
 
+        function closeAllModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
+        window.onclick = function(e) { if (e.target.className === 'modal') closeAllModals(); }
         function closeAllModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         window.onclick = function(e) { if (e.target.className === 'modal') closeAllModals(); }
     </script>
