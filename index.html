@@ -1,4 +1,5 @@
 
+
 </html<!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,6 +7,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNT STORE - Chuyên cung Cấp tài Khoản Vip Các Nền Tảng</title>
     <style>
+       /* Nút XÁC NHẬN THANH TOÁN - To, Rõ, Đẹp */
+    .btn-confirm { 
+        background: #ff4757; /* Màu đỏ san hô thương hiệu của Tiến */
+        color: white; 
+        border: none; 
+        padding: 15px; /* Tăng độ dày cho nút dễ bấm */
+        width: 100% !important; /* Ép nút dài hết cỡ theo chiều ngang Modal */
+        display: block !important; /* Chống bị co lại bởi flex */
+        border-radius: 10px; 
+        font-weight: bold; 
+        font-size: 16px; 
+        cursor: pointer; 
+        margin-top: 20px; 
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.2);
+    }
+
+    .btn-confirm:hover { 
+        background: #e84118; /* Đỏ đậm hơn khi di chuột vào */
+        transform: scale(1.02); /* Phóng to nhẹ tạo cảm giác bấm */
+    }
+       /* Các ô dịch vụ ngoài trang chủ - Fix lỗi 2 cột */
+        .platform-card { 
+            background: #1a1a1a; 
+            border-radius: 15px; 
+            padding: 20px 10px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            border: 1px solid #333; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            box-sizing: border-box; 
+            width: 100%;
+            min-height: 140px;
+        }
+
+        .platform-card p { 
+            font-weight: bold; 
+            margin: 10px 0 0 0; 
+            font-size: 0.95rem; 
+            color: #ffffff !important; 
+        }
+
+        /* FIX LỖI Ô THÔNG TIN (SĐT/ZALO) BỊ NHỎ */
+        .input-style { 
+            width: 100% !important; /* Ép ô nhập liệu rộng hết cỡ */
+            display: block !important; /* Chống bị ảnh hưởng bởi flex */
+            padding: 12px; 
+            margin: 8px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-family: sans-serif;
+        }
+
+        /* Nút MUA màu Xanh Dương - Xanh Lá (Gradient) */
+        .buy-now-btn { 
+            background: linear-gradient(180deg, #007bff 50%, #28a745 50%);
+            color: white; 
+            border: none; 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.2s;
+            min-width: 70px;
+        }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; color: #333; overflow-x: hidden; }
         nav { display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 15px 10%; position: sticky; top: 0; z-index: 3000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-size: 1.6rem; font-weight: bold; color: #ff4757; }
@@ -17,8 +89,8 @@
         .container { padding: 40px 10%; min-height: 80vh; }
         .section-title { text-align: center; margin-bottom: 30px; font-size: 1.8rem; }
         .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-        .platform-card { background: white; border-radius: 15px; padding: 25px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .platform-card:hover { transform: translateY(-5px); border-color: #ff4757; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .platform-card { background: #222; border-radius: 15px; padding: 25px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #333; box-shadow: 0 4px 6px rgba(0,0,0,0.2); color: white; }
+        .platform-card:hover { transform: translateY(-5px); border-color: #ff4757; box-shadow: 0 10px 20px rgba(255,71,87,0.1); }
         .platform-card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 15px; border-radius: 12px; }
         .platform-card p { font-weight: bold; margin: 0; font-size: 1.1rem; }
         
@@ -34,11 +106,21 @@
         .banner-img { width: 100%; height: auto; display: block; border-bottom: 1px solid #eee; }
         .banner-desc { padding: 12px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
 
-        .buy-now-btn { background: #222; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; min-width: 60px; }
-        .buy-now-btn:hover { background: #ff4757; }
-        .bank-box { background: #fff5f5; padding: 15px; border-radius: 10px; text-align: left; margin: 15px 0; border: 1px dashed #ff4757; }
-        .input-style { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        .btn-confirm { background: #ff4757; color: white; border: none; padding: 13px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .buy-now-btn { 
+    background: linear-gradient(to bottom, #007bff, #28a745); /* Xanh dương tan dần sang xanh lá */
+    color: white; 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 8px; 
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+    transition: 0.3s;
+}
+
+.buy-now-btn:hover {
+    background: linear-gradient(to bottom, #28a745, #007bff); /* Đảo ngược màu khi di chuột vào */
+    transform: scale(1.05);
+}
 
         @media (max-width: 768px) {
             nav { padding: 15px 5%; }
@@ -122,6 +204,15 @@
                     { n: "YouTube Premium Dùng Chung 1 Năm", p: "250.000đ" }
                 ]
             },
+            "Canva": {
+                img: "https://topjobstoday.com/images/logos/canva.webp",
+                items: [
+                    { n: "CANVA PRO ( KHÔNG PHẢI EDU ) NÂNG CHÍNH CHỦ 1 THÁNG FULL TÍNH NĂNG AI", p: "15.000đ" },
+                    { n: "CANVA EDU 1 THÁNG NÂNG CHÍNH CHỦ ", p: "15.000đ" },
+                    { n: "CANVA PRO ( KHÔNG PHẢI EDU ) NÂNG CHÍNH CHỦ 3 THÁNG FULL TÍNH NĂNG AI", p: "35.000đ" },
+                    { n: "CANVA EDU 3 THÁNG NÂNG CHÍNH CHỦ ", p: "35.000đ" }
+                ]
+            },
             "ChatGPT": {
                 img: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
                 items: [
@@ -130,7 +221,7 @@
                 ]
             },
             "CapCut": {
-                img: "https://capkcutapk.com/wp-content/uploads/2024/12/capcut-pro-apk.png",
+                img: "https://th.bing.com/th/id/OIP.cXSB00UqSIoq8eEGOQ3TiQAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
                 items: [
                     { n: "CAPCUT TEAM RENEW 35 NGÀY", p: "35.000đ" },
                     { n: "CAPCUT PRO TEAM 6 THÁNG", p: "192.847đ" }
@@ -145,7 +236,7 @@
                 ]
             },
             "Locket Gold": {
-                img: "https://tse2.mm.bing.net/th/id/OIP.f6h2U3aSyLuCygeLVaIqIQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+                img: "https://d12jofbmgge65s.cloudfront.net/wp-content/uploads/2023/01/locket_app_icon-01.png",
                 items: [
                     { n: "Up Locket Gold Android (APK)", p: "35.000đ" },
                     { n: "Up Locket Gold iOS (Đang Phát Triển)", p: "100.000.000đ" }
@@ -164,9 +255,8 @@
                 items: [
                     { n: "Banner Website Tương Tác", p: "30.000đ", thumb: "https://i.ibb.co/DP40dwWp/IMG-9413.jpg" },
                     { n: "Banner Website Đổi Thẻ", p: "30.000đ", thumb: "https://i.ibb.co/DH8b7LrN/IMG-8911.jpg" },
-                    { n: "Banner Phù Hợp All Website", p: "30.000đ", thumb: "https://i.ibb.co/wNTV9nz5/IMG-8723.jpg" },
-                    { n: "QR Code Bank 18+ M1", p: "50.000đ", thumb: "https://i.ibb.co/gFP0ThNj/QR-35K.jpg" },
-                    { n: "QR Code Bank 18+ M2", p: "45.000đ", thumb: "https://i.ibb.co/0R5Bh1qn/IMG-2759.jpg" },
+                    { n: "Banner Phù Hợp All Website", p: "30.000đ", thumb: "https://i.ibb.co/4ZPWqqfh/fe97f374-590b-4aa3-8906-a545825f6ab0.png" },
+                    { n: "QR Code Bank 210", p: "45.000đ", thumb: "https://i.ibb.co/0R5Bh1qn/IMG-2759.jpg" },
                     { n: "QR Code Bank 1", p: "35.000đ", thumb: "https://i.ibb.co/KjKndry3/IMG-0118.jpg" },
                     { n: "QR Code Bank 2", p: "40.000đ", thumb: "https://i.ibb.co/vx02fysv/IMG-0181.jpg" },
                     { n: "Cọc GDV 1", p: "40.000đ", thumb: "https://i.ibb.co/Xk6VKZgJ/IMG-6255.jpg" },
@@ -312,3 +402,4 @@
     </script>
 </body>
 </html>
+  
