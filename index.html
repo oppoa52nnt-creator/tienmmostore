@@ -397,52 +397,39 @@
         function closeAllModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         window.onclick = function(e) { if (e.target.className === 'modal') closeAllModals(); }
     </script>
-<div id="player" style="display:none"></div>
-<div id="music-control" onclick="toggleMusic()" style="position:fixed; bottom:20px; right:20px; z-index:9999; width:45px; height:45px; background:rgba(255, 71, 87, 0.8); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:white; font-size:20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+<div id="music-control" onclick="toggleMusic()" style="position:fixed; bottom:20px; right:20px; z-index:9999; width:40px; height:40px; background:#ff4757; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:white; font-size:18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
     🎵
 </div>
+
+<div style="display:none">
+    <iframe id="yt-player" width="0" height="0" 
+      src="https://youtu.be/qbX-TP_MtcQ?si=kkHKf9ExkkTCZHZC" 
+      frameborder="0" allow="autoplay">
+    </iframe>
+</div>
+
 <script>
-    var player;
-    // Hàm này khởi tạo trình phát của YouTube
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '0',
-            width: '0',
-            videoId: 'ZX2mjf9dFH8', // ID video nhạc Lofi bạn chọn
-            playerVars: {
-                'autoplay': 1,
-                'loop': 1,
-                'playlist': 'ZX2mjf9dFH8' // Bắt buộc trùng ID trên để lặp lại bài
-            },
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        // Một số trình duyệt sẽ chờ người dùng click rồi mới phát
-        event.target.playVideo();
-    }
-
     function toggleMusic() {
-        var btn = document.getElementById("music-control");
-        if (player.getPlayerState() == 1) {
-            player.pauseVideo();
-            btn.innerHTML = "🔇";
-            btn.style.background = "rgba(0, 0, 0, 0.5)";
+        var iframe = document.getElementById('yt-player');
+        var btn = document.getElementById('music-control');
+        
+        // Gửi lệnh qua iframe để phát hoặc tạm dừng
+        if (btn.innerText === "🎵") {
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            btn.innerText = "🔇";
+            btn.style.background = "#333";
         } else {
-            player.playVideo();
-            btn.innerHTML = "🎵";
-            btn.style.background = "rgba(255, 71, 87, 0.8)";
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            btn.innerText = "🎵";
+            btn.style.background = "#ff4757";
         }
     }
 
-    // Tải thư viện YouTube API từ server Google
-    var tag = document.createElement('script');
-    tag.src = "https://youtu.be/qbX-TP_MtcQ?si=kkHKf9ExkkTCZHZC";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // Thủ thuật: Khi khách click bất kỳ đâu trên web, nhạc sẽ tự kích hoạt phát
+    document.addEventListener('click', function() {
+        var iframe = document.getElementById('yt-player');
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }, { once: true }); // Chỉ chạy 1 lần duy nhất khi click đầu tiên
 </script>
 </body>
 </html>
