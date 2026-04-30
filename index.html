@@ -1,436 +1,1012 @@
-
-
-</html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SNT STORE - Chuyên cung Cấp tài Khoản Vip Các Nền Tảng</title>
-    <style>
-       /* Nút XÁC NHẬN THANH TOÁN - To, Rõ, Đẹp */
-    .btn-confirm { 
-        background: #ff4757; /* Màu đỏ san hô thương hiệu của Tiến */
-        color: white; 
-        border: none; 
-        padding: 15px; /* Tăng độ dày cho nút dễ bấm */
-        width: 100% !important; /* Ép nút dài hết cỡ theo chiều ngang Modal */
-        display: block !important; /* Chống bị co lại bởi flex */
-        border-radius: 10px; 
-        font-weight: bold; 
-        font-size: 16px; 
-        cursor: pointer; 
-        margin-top: 20px; 
-        transition: 0.3s;
-        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.2);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNT STORE - Dịch vụ tài khoản & thiết kế số</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0b1730;
+      --card: rgba(255, 255, 255, 0.075);
+      --card-2: rgba(255, 255, 255, 0.105);
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #eef6ff;
+      --muted: #9fb2d1;
+      --cyan: #38d5ff;
+      --blue: #4c7dff;
+      --violet: #9b5cff;
+      --red: #ff4d6d;
+      --green: #2fe39b;
+      --warning: #ffb020;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
     }
 
-    .btn-confirm:hover { 
-        background: #e84118; /* Đỏ đậm hơn khi di chuột vào */
-        transform: scale(1.02); /* Phóng to nhẹ tạo cảm giác bấm */
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 213, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(155, 92, 255, 0.18), transparent 32%),
+        linear-gradient(135deg, var(--bg), var(--bg-2) 55%, #050913);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-       /* Các ô dịch vụ ngoài trang chủ - Fix lỗi 2 cột */
-        .platform-card { 
-            background: #1a1a1a; 
-            border-radius: 15px; 
-            padding: 20px 10px; 
-            text-align: center; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            border: 1px solid #333; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            box-sizing: border-box; 
-            width: 100%;
-            min-height: 140px;
-        }
 
-        .platform-card p { 
-            font-weight: bold; 
-            margin: 10px 0 0 0; 
-            font-size: 0.95rem; 
-            color: #ffffff !important; 
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent 80%);
+      z-index: -1;
+    }
 
-        /* FIX LỖI Ô THÔNG TIN (SĐT/ZALO) BỊ NHỎ */
-        .input-style { 
-            width: 100% !important; /* Ép ô nhập liệu rộng hết cỡ */
-            display: block !important; /* Chống bị ảnh hưởng bởi flex */
-            padding: 12px; 
-            margin: 8px 0; 
-            border: 1px solid #ddd; 
-            border-radius: 6px; 
-            box-sizing: border-box; 
-            font-family: sans-serif;
-        }
+    a { color: inherit; }
 
-        /* Nút MUA màu Xanh Dương - Xanh Lá (Gradient) */
-        .buy-now-btn { 
-            background: linear-gradient(180deg, #007bff 50%, #28a745 50%);
-            color: white; 
-            border: none; 
-            padding: 8px 12px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: 0.2s;
-            min-width: 70px;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f0f2f5; color: #333; overflow-x: hidden; }
-        nav { display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 15px 10%; position: sticky; top: 0; z-index: 3000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.6rem; font-weight: bold; color: #ff4757; }
-        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
-        .nav-links a { color: #333; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .nav-links a:hover { color: #ff4757; }
-        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
-        .menu-toggle span { display: block; width: 25px; height: 3px; background: #333; border-radius: 2px; }
-        .container { padding: 40px 10%; min-height: 80vh; }
-        .section-title { text-align: center; margin-bottom: 30px; font-size: 1.8rem; }
-        .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-        .platform-card { background: #222; border-radius: 15px; padding: 25px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #333; box-shadow: 0 4px 6px rgba(0,0,0,0.2); color: white; }
-        .platform-card:hover { transform: translateY(-5px); border-color: #ff4757; box-shadow: 0 10px 20px rgba(255,71,87,0.1); }
-        .platform-card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 15px; border-radius: 12px; }
-        .platform-card p { font-weight: bold; margin: 0; font-size: 1.1rem; }
-        
-        .modal { display: none; position: fixed; z-index: 4000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; backdrop-filter: blur(4px); }
-        .modal-content { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
-        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 28px; cursor: pointer; color: #aaa; }
-        
-        .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
-        .sub-info h4 { margin: 0; font-size: 14px; padding-right: 5px; }
-        .sub-info span { color: #ff4757; font-weight: bold; font-size: 14px; }
-        
-        .banner-item { border: 1px solid #eee; border-radius: 12px; margin-bottom: 20px; overflow: hidden; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .banner-img { width: 100%; height: auto; display: block; border-bottom: 1px solid #eee; }
-        .banner-desc { padding: 12px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
+    .topbar {
+      width: min(1180px, calc(100% - 32px));
+      margin: 18px auto 0;
+      position: sticky;
+      top: 14px;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(7, 17, 31, 0.76);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 34px rgba(0,0,0,0.24);
+    }
 
-        .buy-now-btn { 
-    background: linear-gradient(to bottom, #007bff, #28a745); /* Xanh dương tan dần sang xanh lá */
-    color: white; 
-    border: none; 
-    padding: 8px 15px; 
-    border-radius: 8px; 
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
-    transition: 0.3s;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .4px;
+      white-space: nowrap;
+    }
 
-.buy-now-btn:hover {
-    background: linear-gradient(to bottom, #28a745, #007bff); /* Đảo ngược màu khi di chuột vào */
-    transform: scale(1.05);
-}
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--blue), var(--violet));
+      box-shadow: 0 0 26px rgba(56, 213, 255, .35);
+    }
 
-        @media (max-width: 768px) {
-            nav { padding: 15px 5%; }
-            .menu-toggle { display: flex; }
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 20px 0; box-shadow: 0 5px 10px rgba(0,0,0,0.1); gap: 15px; text-align: center; }
-            .nav-links.active { display: flex; }
-            .container { padding: 25px 5%; }
-            .platform-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        }
-    </style>
+    .brand span:last-child {
+      background: linear-gradient(90deg, #fff, #aeefff, #d6c6ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: .92rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: .22s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(255,255,255,.09);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.08);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .menu-toggle span {
+      width: 18px;
+      height: 2px;
+      background: #fff;
+      border-radius: 999px;
+    }
+
+    .hero, .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 70px 0 28px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,213,255,.28);
+      background: rgba(56,213,255,.08);
+      color: #c9f5ff;
+      font-weight: 800;
+      font-size: .88rem;
+    }
+
+    .hero h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(2.15rem, 6vw, 4.5rem);
+      line-height: .96;
+      letter-spacing: -2.2px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff, #8eeaff, #bea6ff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 0 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-ghost, .btn-confirm, .buy-now-btn {
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 900;
+      transition: .22s ease;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--cyan), var(--blue), var(--violet));
+      color: #fff;
+      box-shadow: 0 14px 36px rgba(76,125,255,.28);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+    }
+
+    .btn-primary:hover, .btn-ghost:hover, .buy-now-btn:hover, .btn-confirm:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.055));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: -70px;
+      background: conic-gradient(from 180deg, transparent, rgba(56,213,255,.18), transparent, rgba(155,92,255,.16), transparent);
+      animation: spin 8s linear infinite;
+      opacity: .75;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      border-radius: 22px;
+      background: rgba(5, 10, 18, 0.72);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 22px;
+      backdrop-filter: blur(12px);
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.11);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 3px;
+    }
+
+    .stat span { color: var(--muted); font-size: .86rem; }
+
+    .search-wrap {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .search-wrap input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: .95rem;
+      padding: 0 6px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 18px 0 22px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      letter-spacing: -.8px;
+    }
+
+    .section-subtitle {
+      margin: 7px 0 0;
+      color: var(--muted);
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      padding-bottom: 60px;
+    }
+
+    .platform-card {
+      position: relative;
+      min-height: 180px;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.055));
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+      transition: .25s ease;
+    }
+
+    .platform-card::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -60px;
+      top: -60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,213,255,.32), transparent 70%);
+      transition: .25s ease;
+    }
+
+    .platform-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(56,213,255,.38);
+      box-shadow: 0 24px 55px rgba(0,0,0,.28), 0 0 28px rgba(56,213,255,.10);
+    }
+
+    .platform-card:hover::before { transform: scale(1.25); }
+
+    .platform-card img {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      border-radius: 18px;
+      padding: 9px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      position: relative;
+      z-index: 1;
+    }
+
+    .platform-card p {
+      position: relative;
+      z-index: 1;
+      margin: 18px 0 6px;
+      font-weight: 950;
+      font-size: 1.08rem;
+    }
+
+    .platform-card small {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .support-card {
+      max-width: 520px;
+      margin: 30px auto 80px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .support-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 4000;
+      inset: 0;
+      padding: 18px;
+      background: rgba(0, 0, 0, .68);
+      backdrop-filter: blur(10px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      width: min(560px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      padding: 24px;
+      border-radius: var(--radius-xl);
+      background: rgba(9, 18, 34, .96);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+
+    .modal-content h3 {
+      margin: 0 42px 18px 0;
+      font-size: 1.35rem;
+      letter-spacing: -.4px;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      cursor: pointer;
+      font-size: 26px;
+      line-height: 1;
+      transition: .2s;
+    }
+
+    .close-btn:hover { background: rgba(255,255,255,.16); }
+
+    .sub-item, .banner-item {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.07);
+      border-radius: 18px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .sub-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .sub-info h4, .banner-desc h4 {
+      margin: 0 0 7px;
+      font-size: .95rem;
+      line-height: 1.35;
+    }
+
+    .sub-info span, .banner-desc span {
+      color: #8eeaff;
+      font-weight: 950;
+    }
+
+    .buy-now-btn {
+      flex: 0 0 auto;
+      color: #03111d;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(47,227,155,.18);
+    }
+
+    .banner-img {
+      width: 100%;
+      display: block;
+      max-height: 260px;
+      object-fit: cover;
+      background: #111;
+    }
+
+    .banner-desc {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .bank-box {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(56,213,255,.24);
+      background: linear-gradient(180deg, rgba(56,213,255,.11), rgba(255,255,255,.06));
+      margin-bottom: 14px;
+    }
+
+    .bank-box p { margin: 8px 0; color: var(--muted); }
+    .bank-box b { color: var(--text); }
+
+    .notice {
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.55;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .input-style {
+      width: 100%;
+      display: block;
+      padding: 14px 15px;
+      margin: 10px 0;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      outline: none;
+      background: rgba(255,255,255,.075);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .input-style::placeholder { color: rgba(238,246,255,.55); }
+
+    .btn-confirm {
+      width: 100%;
+      display: block;
+      color: #fff;
+      padding: 15px 18px;
+      border-radius: 16px;
+      margin-top: 14px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--red), var(--violet));
+      box-shadow: 0 14px 34px rgba(255,77,109,.22);
+    }
+
+    .terms-box {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,176,32,.10);
+      border: 1px solid rgba(255,176,32,.24);
+      color: #ffe2ad;
+      line-height: 1.55;
+      font-size: .9rem;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; padding-top: 48px; }
+      .platform-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        width: min(100% - 20px, 1180px);
+        border-radius: 24px;
+      }
+
+      .menu-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 10px;
+        right: 10px;
+        top: calc(100% + 10px);
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 22px;
+        background: rgba(7, 17, 31, .96);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.active { display: flex; }
+      .nav-links a { justify-content: center; }
+      .hero, .container { width: min(100% - 22px, 1180px); }
+      .hero { padding-top: 36px; }
+      .hero h1 { letter-spacing: -1.2px; }
+      .hero-actions { display: grid; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .platform-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .platform-card { min-height: 158px; padding: 14px; border-radius: 20px; }
+      .platform-card img { width: 58px; height: 58px; }
+      .sub-item, .banner-desc { align-items: stretch; flex-direction: column; }
+      .buy-now-btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo">SNT STORE</div>
-        <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-        <ul class="nav-links" id="menuList">
-            <li><a onclick="showPage('home')">Trang Chủ</a></li>
-            <li><a onclick="showPage('support')">Hỗ Trợ</a></li>
-        </ul>
-    </nav>
-
-    <div id="home" class="container">
-        <h2 class="section-title">Danh Mục Sản Phẩm</h2>
-        <div class="platform-grid" id="mainGrid"></div>
+  <nav class="topbar">
+    <div class="brand">
+      <span class="brand-mark">⚡</span>
+      <span>SNT STORE</span>
     </div>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Mở menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="menuList">
+      <li><a id="nav-home" class="active" onclick="showPage('home')">Trang chủ</a></li>
+      <li><a id="nav-support" onclick="showPage('support')">Hỗ trợ</a></li>
+    </ul>
+  </nav>
 
-    <div id="support" class="container" style="display:none; text-align: center;">
-        <h2 class="section-title">Liên Hệ Admin</h2>
-        <div style="max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-            <a href="https://zalo.me/0966181924" style="display:block; background:#0084ff; color:white; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px;">Zalo CSKH</a>
-            <a href="https://facebook.com/ntien210" style="display:block; background:#3b5998; color:white; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold;">Facebook CSKH</a>
+  <main id="home">
+    <section class="hero">
+      <div>
+        <div class="badge">🚀 Dịch vụ số nhanh gọn - hỗ trợ qua Zalo</div>
+        <h1><span class="gradient-text">SNT STORE</span><br>Dịch vụ tài khoản & thiết kế số</h1>
+        <p>Hệ thống cung cấp tài nguyên MMO uy tín – nhanh gọn, tiện lợi, hỗ trợ 24/7.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#products">Xem danh mục</a>
+          <a class="btn-ghost" onclick="showPage('support')">Liên hệ admin</a>
         </div>
-    </div>
+      </div>
 
-    <div id="modal-sub" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeAllModals()">&times;</span>
-            <h3 id="display-platform-name">Gói dịch vụ</h3>
-            <div id="sub-list-container"></div>
+      <aside class="hero-panel">
+        <div class="hero-card-inner">
+          <div class="stat-grid">
+            <div class="stat"><b id="total-category">0</b><span>Danh mục dịch vụ</span></div>
+            <div class="stat"><b>24/7</b><span>Nhận thông tin đơn</span></div>
+            <div class="stat"><b>Zalo</b><span>Hỗ trợ chính</span></div>
+            <div class="stat"><b>TPBank</b><span>Thanh toán</span></div>
+          </div>
+          <div class="search-wrap">
+            <span>🔎</span>
+            <input id="searchInput" type="text" placeholder="Tìm YouTube, Canva, ChatGPT..." oninput="renderGrid()" />
+          </div>
         </div>
-    </div>
+      </aside>
+    </section>
 
-    <div id="modal-pay" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeAllModals()">&times;</span>
-            <h3>Thanh Toán Đơn Hàng</h3>
-            <div class="bank-box">
-                <p>Ngân hàng: <b>TP Bank</b></p>
-                <p>STK: <b style="color:#ff4757; font-size: 20px;">94476666886</b></p>
-                <p>Chủ TK: <b>NGUYEN NHAT TIEN</b></p>
-                <p style="margin-top:10px; border-top: 1px dashed #ccc; padding-top:10px">Số tiền cần chuyển: <b id="display-pay-price" style="color:#ff4757; font-size: 18px;">0đ</b></p>
-            </div>
-            <p style="color: #ff4757; font-size: 11px; font-style: italic; text-align: left; padding: 0 10px;">
-                * Chúng tôi cần thông tin từ bạn để hỗ trợ và đối chiếu sản phẩm khi có yêu cầu từ Cục An Ninh Mạng. SNT STORE cam kết bảo mật thông tin!
-            </p>
-            <p style="color: #28a745; font-weight: bold; font-size: 13px; margin: 10px 0;">
-                📸 Vui lòng chụp màn hình bill chuyển khoản!
-            </p>
-            <input type="text" id="cust-name" class="input-style" placeholder="Họ và tên của bạn">
-            <input type="text" id="cust-info" class="input-style" placeholder="SĐT Zalo hoặc Link Facebook">
-            <button class="btn-confirm" onclick="handleFinish()">Tôi đã thanh toán</button>
+    <section id="products" class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">Danh mục sản phẩm</h2>
+          <p class="section-subtitle">Bấm vào từng ô để xem gói dịch vụ và giá.</p>
         </div>
+      </div>
+      <div class="platform-grid" id="mainGrid"></div>
+    </section>
+  </main>
+
+  <section id="support" class="container hidden">
+    <div class="support-card">
+      <div class="badge">💬 Liên hệ Admin</div>
+      <h2 class="section-title" style="margin-top:16px;">Cần hỗ trợ đơn hàng?</h2>
+      <p class="section-subtitle">Bấm vào một trong hai kênh bên dưới để nhắn admin SNT STORE.</p>
+      <div class="support-actions">
+        <a class="btn-primary" href="https://zalo.me/0966181924" target="_blank">Zalo CSKH</a>
+        <a class="btn-ghost" href="https://facebook.com/ntien210" target="_blank">Facebook CSKH</a>
+      </div>
     </div>
+  </section>
 
-    <div id="modal-final" class="modal">
-        <div class="modal-content">
-            <h3>Vui Lòng Sao Chép toàn Bộ Thông Tin bên Dưới Gửi Cho Admin Để Nhận Hàng</h3>
-            <textarea id="copy-box" class="input-style" style="height: 120px;" readonly></textarea>
-            <button class="btn-confirm" onclick="copyAndGoToZalo()">SAO CHÉP & GỬI ZALO</button>
-        </div>
+  <div id="modal-sub" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeAllModals()">&times;</span>
+      <h3 id="display-platform-name">Gói dịch vụ</h3>
+      <div id="sub-list-container"></div>
     </div>
+  </div>
 
-    <script>
-        const data = {
-            "YouTube": {
-                img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
-                items: [
-                    { n: "YouTube Premium 1 Tháng Acc Cấp", p: "25.000đ" },
-                    { n: "YouTube Premium 3 Tháng acc cấp", p: "62.000đ" },
-                    { n: "YouTube Premium Dùng Chung 1 Năm", p: "250.000đ" }
-                ]
-            },
-            "Canva": {
-                img: "https://topjobstoday.com/images/logos/canva.webp",
-                items: [
-                    { n: "CANVA PRO ( KHÔNG PHẢI EDU ) NÂNG CHÍNH CHỦ 1 THÁNG FULL TÍNH NĂNG AI", p: "15.000đ" },
-                    { n: "CANVA EDU 1 THÁNG NÂNG CHÍNH CHỦ ", p: "15.000đ" },
-                    { n: "CANVA PRO ( KHÔNG PHẢI EDU ) NÂNG CHÍNH CHỦ 3 THÁNG FULL TÍNH NĂNG AI", p: "35.000đ" },
-                    { n: "CANVA EDU 3 THÁNG NÂNG CHÍNH CHỦ ", p: "35.000đ" }
-                ]
-            },
-            "ChatGPT": {
-                img: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-                items: [
-                    { n: "CHAT GPT PLUS 1 THÁNG ACC CẤP RIÊNG", p: "25.000đ" },
-                    { n: "CHAT GPT PLUS 1 THÁNG NÂNG CHÍNH CHỦ", p: "30.000đ" }
-                ]
-            },
-            "CapCut": {
-                img: "https://th.bing.com/th/id/OIP.cXSB00UqSIoq8eEGOQ3TiQAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
-                items: [
-                    { n: "CAPCUT PRO CÁ NHÂN RENEW 30-35 NGÀY", p: "17.000đ" },
-                    { n: "CAPCUT PRO 6 THÁNG", p: "150.000đ" }
-                ]
-            },
-            "Netflix": {
-                img: "https://static.vecteezy.com/system/resources/previews/017/396/814/original/netflix-mobile-application-logo-free-png.png",
-                items: [
-                    { n: "NETFLIX DÙNG CHUNG 1 THÁNG", p: "48.000đ" },
-                    { n: "NETFLIX SLOT RIÊNG 1 THÁNG", p: "74.920đ" },
-                    { n: "NETFLIX 1 NĂM VIP PRO", p: "365.240đ" }
-                ]
-            },
-            "Locket Gold": {
-                img: "https://d12jofbmgge65s.cloudfront.net/wp-content/uploads/2023/01/locket_app_icon-01.png",
-                items: [
-                    { n: "Up Locket Gold Android (APK)", p: "35.000đ" },
-                    { n: "Up Locket Gold iOS (Đang Phát Triển)", p: "100.000.000đ" }
-                ]
-            },
-            "Gemini": {
-                img: "https://tse4.mm.bing.net/th/id/OIP.umfUzNjKLT1bMF25L3QPoAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
-                items: [
-                    { n: "LINK NHẬN GEMINI PRO HẠN 4 THÁNG", p: "30.000đ" },
-                    { n: "GEMINI PRO HẠN 1 NĂM - CHÍNH CHỦ", p: "89.999đ" }
-                ]
-            },
-            "Thiết Kế Banner": {
-                img: "https://i.ibb.co/5g72Rzv3/7ca29a99-9c4b-4819-8fde-5b6ce723ae4c.png",
-                isGallery: true, 
-                items: [
-                    { n: "Banner Website Tương Tác", p: "30.000đ", thumb: "https://i.ibb.co/DP40dwWp/IMG-9413.jpg" },
-                    { n: "Banner Website Đổi Thẻ", p: "30.000đ", thumb: "https://i.ibb.co/DH8b7LrN/IMG-8911.jpg" },
-                    { n: "Banner Phù Hợp All Website", p: "30.000đ", thumb: "https://i.ibb.co/4ZPWqqfh/fe97f374-590b-4aa3-8906-a545825f6ab0.png" },
-                    { n: "Cọc GDV 1", p: "40.000đ", thumb: "https://i.ibb.co/Xk6VKZgJ/IMG-6255.jpg" },
-                    { n: "Cọc GDV 2", p: "45.000đ", thumb: "https://i.ibb.co/Y4Wh3dss/BB261-A73-0-E85-4-DEA-8-D41-115-EDE5-E5-F8-A.jpg" },
-                    { n: "Cọc GDV 3", p: "32.000đ", thumb: "https://i.ibb.co/tTRSvbcN/IMG-1817.jpg" },
-                    { n: "Ảnh Bìa M1", p: "30.000đ", thumb: "https://i.ibb.co/gFS4Dztn/IMG-0156.jpg" },
-                    { n: "Ảnh Bìa M2", p: "30.000đ", thumb: "https://i.ibb.co/1Gg2Lg52/IMG-8031.jpg" }
-                ]
-            },
-            "Roblox": {
-                img: "https://tse1.mm.bing.net/th/id/OIP.G5ARJYhMzWhy8VF2VDuUbwHaHa?w=900&h=900&rs=1&pid=ImgDetMain&o=7&rm=3",
-                items: [
-                    { n: "GOD LV 2800  Trái Ác Quỷ Ngẫu Nhiên", p: "15.000đ" },
-                    { n: "GOD LV 2800  Trái GAS Trong Rương", p: "30.000đ" },
-                    { n: "GOD LV 2800  Trái T-REX Trong Rương", p: "30.000đ" },
-                    { n: "GOD LV 2800  Trái  MAMMOTH Trong Rương", p: "30.000đ" },
-                ]
-            },
-            "Auto MXH": {
-                img: "https://i.ibb.co/mrJZKyGm/55355b4e-4aa8-4179-b3ff-77524ca8669b.png",
-                items: [
-                    { n: "Tích Xanh Profile", p: "400.000đ" },
-                    { n: "Tích Xanh Chính Chủ", p: "1.200.000đ" },
-                    { n: "Mở Khóa Đình Chỉ 180 NGÀY", p: "500.000đ" },
-                    { n: "Lấy lại Facebook Bị Hack (  có thiết bị đã đăng nhập và sử dụng thường xuyên trên 6 tháng. )", p: "600.000đ" },
-                    { n: "Rip Profile Thường", p: "200.000đ" },
-                    { n: "Rip Tài Khoản Chuyên nghiệp", p: "300.000đ" },
-                    { n: "Rip Tài Khoản Khóa Bảo Vệ TCN", p: "550.000đ" },
-                ]
-            },
-            "Tut Facebook": {
-                img: "https://i.ibb.co/rGzR4g7b/f436d727-1cc4-441d-b333-62254b117fc8.png",
-                items: [
-                    { n: "Tut Đổi Ngày Tháng Năm Sinh không Giới Hạn", p: "80.000đ" },
-                    { n: "Tut Kick Thiết Bị lạ", p: "80.000đ" },
-                    { n: "Tut Đổi Tên Trước 60 Ngày", p: "329.000đ" },
-                    { n: "Tut Mở Khóa 956", p: "600.000đ" },
-                    { n: "Tut Mở Khóa 282", p: "380.000đ" },
-                ]
-            },
-            "Giao Dịch Trung Gian": {
-                img: "https://i.ibb.co/whq2rn9t/Screenshot-2026-03-29-164049.png", 
-                items: [
-                    { n: "Phí GD dưới 100.000đ", p: "2.000đ" },
-                    { n: "Phí GD 100.000 - 250.000đ", p: "5.000đ" },
-                    { n: "Phí GD 250.000 - 500.000đ", p: "8.000đ" },
-                    { n: "Phí GD trên 500.000đ", p: "3% Giá Trị Giao Dịch" },
-            
-                ]
-            }
-        };
+  <div id="modal-pay" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeAllModals()">&times;</span>
+      <h3>Thanh toán đơn hàng</h3>
+      <div class="bank-box">
+        <p>Ngân hàng: <b>TP Bank</b></p>
+        <p>STK: <b style="color:#8eeaff; font-size: 20px;">94476666886</b></p>
+        <p>Chủ TK: <b>NGUYEN NHAT TIEN</b></p>
+        <p style="margin-top:10px; border-top: 1px dashed rgba(255,255,255,.22); padding-top:10px">Số tiền cần chuyển: <b id="display-pay-price" style="color:#2fe39b; font-size: 18px;">0đ</b></p>
+      </div>
+      <p class="notice">* Vui lòng điền thông tin để admin đối chiếu và hỗ trợ đơn hàng. SNT STORE cam kết bảo mật thông tin khách hàng.</p>
+      <p style="color: var(--green); font-weight: 900; font-size: .9rem; margin: 12px 0;">📸 Vui lòng chụp màn hình bill chuyển khoản.</p>
+      <input type="text" id="cust-name" class="input-style" placeholder="Họ và tên của bạn" />
+      <input type="text" id="cust-info" class="input-style" placeholder="SĐT Zalo hoặc Link Facebook" />
+      <button class="btn-confirm" onclick="handleFinish()">Tôi đã thanh toán</button>
+    </div>
+  </div>
 
-        let tempName = ""; let tempPrice = "";
-        const grid = document.getElementById('mainGrid');
-        for (let key in data) {
-            grid.innerHTML += `<div class="platform-card" onclick="openSub('${key}')"><img src="${data[key].img}"><p>${key}</p></div>`;
-        }
+  <div id="modal-final" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeAllModals()">&times;</span>
+      <h3>Sao chép thông tin bên dưới gửi Admin để nhận hàng</h3>
+      <textarea id="copy-box" class="input-style" style="height: 140px; resize: vertical;" readonly></textarea>
+      <button class="btn-confirm" onclick="copyAndGoToZalo()">SAO CHÉP & GỬI ZALO</button>
+    </div>
+  </div>
 
-        function toggleMenu() { document.getElementById('menuList').classList.toggle('active'); }
-        function showPage(id) {
-            document.getElementById('home').style.display = (id==='home'?'block':'none');
-            document.getElementById('support').style.display = (id==='support'?'block':'none');
-            document.getElementById('menuList').classList.remove('active');
-            window.scrollTo(0,0);
-        }
+  <script>
+    const data = {
+      "YouTube": {
+        img: "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
+        items: [
+          { n: "YouTube Premium 1 Tháng Acc Cấp", p: "25.000đ" },
+          { n: "YouTube Premium 3 Tháng acc cấp", p: "62.000đ" },
+          { n: "YouTube Premium Dùng Chung 1 Năm", p: "250.000đ" }
+        ]
+      },
+      "Canva": {
+        img: "https://topjobstoday.com/images/logos/canva.webp",
+        items: [
+          { n: "CANVA PRO ( KHÔNG PHẢI EDU ) NÂNG CHÍNH CHỦ 1 THÁNG FULL TÍNH NĂNG AI", p: "15.000đ" },
+          { n: "CANVA EDU 1 THÁNG NÂNG CHÍNH CHỦ", p: "15.000đ" },
+          { n: "CANVA PRO ( KHÔNG PHẢI EDU ) NÂNG CHÍNH CHỦ 3 THÁNG FULL TÍNH NĂNG AI", p: "35.000đ" },
+          { n: "CANVA EDU 3 THÁNG NÂNG CHÍNH CHỦ", p: "35.000đ" }
+        ]
+      },
+      "ChatGPT": {
+        img: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+        items: [
+          { n: "CHAT GPT PLUS 1 THÁNG ACC CẤP RIÊNG", p: "25.000đ" },
+          { n: "CHAT GPT PLUS 1 THÁNG NÂNG CHÍNH CHỦ", p: "30.000đ" }
+        ]
+      },
+      "CapCut": {
+        img: "https://th.bing.com/th/id/OIP.cXSB00UqSIoq8eEGOQ3TiQAAAA?o=7&rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+        items: [
+          { n: "CAPCUT PRO 30-35 NGÀY - 3 THIẾT BỊ", p: "17.000đ" },
+          { n: "CAPCUT PRO 3 THÁNG", p: "90.000đ" },
+          { n: "CAPCUT PRO 6 THÁNG", p: "120.000đ" },
+          { n: "CAPCUT PRO 1 NĂM", p: "372.000đ" }
+        ]
+      },
+      "Netflix": {
+        img: "https://static.vecteezy.com/system/resources/previews/017/396/814/original/netflix-mobile-application-logo-free-png.png",
+        items: [
+          { n: "NETFLIX DÙNG CHUNG 1 THÁNG", p: "48.000đ" },
+          { n: "NETFLIX SLOT RIÊNG 1 THÁNG", p: "85.000đ" },
+          { n: "NETFLIX PREMIUM DÙNG CHUNG - 3 NGÀY", p: "20.000đ" },
+          { n: "NETFLIX PREMIUM DÙNG CHUNG - 7 NGÀY", p: "30.000đ" },
+          { n: "TÀI KHOẢN NETFLIX PREMIUM/CAO CẤP — CHẤT LƯỢNG 4K SẮC NÉT", p: "365.000đ" },
+          { n: "NETFLIX 1 NĂM VIP PRO", p: "365.240đ" }
+        ]
+      },
+      "Locket Gold": {
+        img: "https://d12jofbmgge65s.cloudfront.net/wp-content/uploads/2023/01/locket_app_icon-01.png",
+        items: [
+          { n: "Up Locket Gold Android (APK)", p: "35.000đ" },
+          { n: "Up Locket Gold iOS (Đang Phát Triển)", p: "100.000.000đ" }
+        ]
+      },
+      "Gemini": {
+        img: "https://tse4.mm.bing.net/th/id/OIP.umfUzNjKLT1bMF25L3QPoAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+        items: [
+          { n: "LINK NHẬN GEMINI PRO HẠN 4 THÁNG", p: "30.000đ" },
+          { n: "GEMINI PRO HẠN 1 NĂM - CHÍNH CHỦ", p: "89.999đ" }
+        ]
+      },
+      "Thiết Kế Banner": {
+        img: "https://i.ibb.co/5g72Rzv3/7ca29a99-9c4b-4819-8fde-5b6ce723ae4c.png",
+        isGallery: true,
+        items: [
+          { n: "Banner Website Tương Tác", p: "30.000đ", thumb: "https://i.ibb.co/DP40dwWp/IMG-9413.jpg" },
+          { n: "Banner Website Đổi Thẻ", p: "30.000đ", thumb: "https://i.ibb.co/DH8b7LrN/IMG-8911.jpg" },
+          { n: "Banner Phù Hợp All Website", p: "30.000đ", thumb: "https://i.ibb.co/4ZPWqqfh/fe97f374-590b-4aa3-8906-a545825f6ab0.png" },
+          { n: "Cọc GDV 1", p: "40.000đ", thumb: "https://i.ibb.co/Xk6VKZgJ/IMG-6255.jpg" },
+          { n: "Cọc GDV 2", p: "45.000đ", thumb: "https://i.ibb.co/Y4Wh3dss/BB261-A73-0-E85-4-DEA-8-D41-115-EDE5-E5-F8-A.jpg" },
+          { n: "Cọc GDV 3", p: "32.000đ", thumb: "https://i.ibb.co/tTRSvbcN/IMG-1817.jpg" },
+          { n: "Ảnh Bìa M1", p: "30.000đ", thumb: "https://i.ibb.co/gFS4Dztn/IMG-0156.jpg" },
+          { n: "Ảnh Bìa M2", p: "30.000đ", thumb: "https://i.ibb.co/1Gg2Lg52/IMG-8031.jpg" }
+        ]
+      },
+      "Roblox": {
+        img: "https://tse1.mm.bing.net/th/id/OIP.G5ARJYhMzWhy8VF2VDuUbwHaHa?w=900&h=900&rs=1&pid=ImgDetMain&o=7&rm=3",
+        items: [
+          { n: "GOD LV 2800 Trái Ác Quỷ Ngẫu Nhiên", p: "15.000đ" },
+          { n: "GOD LV 2800 Trái GAS Trong Rương", p: "30.000đ" },
+          { n: "GOD LV 2800 Trái T-REX Trong Rương", p: "30.000đ" },
+          { n: "GOD LV 2800 Trái MAMMOTH Trong Rương", p: "30.000đ" }
+        ]
+      },
+      "Auto MXH": {
+        img: "https://i.ibb.co/mrJZKyGm/55355b4e-4aa8-4179-b3ff-77524ca8669b.png",
+        items: [
+          { n: "Tư vấn bảo mật tài khoản chính chủ", p: "Liên hệ" },
+          { n: "Hỗ trợ xác minh / khôi phục tài khoản chính chủ", p: "Liên hệ" },
+          { n: "Hỗ trợ xử lý sự cố tài khoản theo giấy tờ chính chủ", p: "Liên hệ" }
+        ]
+      },
+      "Tut Facebook": {
+        img: "https://i.ibb.co/rGzR4g7b/f436d727-1cc4-441d-b333-62254b117fc8.png",
+        items: [
+          { n: "Hướng dẫn bảo mật tài khoản Facebook", p: "Liên hệ" },
+          { n: "Hướng dẫn kiểm tra thiết bị đăng nhập", p: "Liên hệ" },
+          { n: "Hỗ trợ cài đặt thông tin tài khoản chính chủ", p: "Liên hệ" }
+        ]
+      },
+      "Giao Dịch Trung Gian": {
+        img: "https://i.ibb.co/whq2rn9t/Screenshot-2026-03-29-164049.png",
+        items: [
+          { n: "Phí GD dưới 100.000đ", p: "2.000đ" },
+          { n: "Phí GD 100.000 - 250.000đ", p: "5.000đ" },
+          { n: "Phí GD 250.000 - 500.000đ", p: "8.000đ" },
+          { n: "Phí GD trên 500.000đ", p: "3% Giá Trị Giao Dịch" }
+        ]
+      }
+    };
 
-        function openSub(key) {
-            const list = document.getElementById('sub-list-container');
-            document.getElementById('display-platform-name').innerText = "Gói " + key;
-            list.innerHTML = "";
-            const platform = data[key];
-            platform.items.forEach(item => {
-                if (platform.isGallery) {
-                    list.innerHTML += `<div class="banner-item"><img src="${item.thumb}" class="banner-img"><div class="banner-desc"><div><h4>${item.n}</h4><span>${item.p}</span></div><button class="buy-now-btn" onclick="openPay('${item.n}', '${item.p}')">Chọn</button></div></div>`;
-                } else {
-                    list.innerHTML += `<div class="sub-item"><div class="sub-info"><h4>${item.n}</h4><span>${item.p}</span></div><button class="buy-now-btn" onclick="openPay('${item.n}', '${item.p}')">Mua</button></div>`;
-                }
-            });
-            document.getElementById('modal-sub').style.display = 'flex';
-        }
+    let tempName = "";
+    let tempPrice = "";
+    const grid = document.getElementById('mainGrid');
+    const totalCategory = document.getElementById('total-category');
+    totalCategory.innerText = Object.keys(data).length;
 
-       function openPay(name, price) {
-            const platformName = document.getElementById('display-platform-name').innerText;
-
-            // KIỂM TRA: Nếu khách đang bấm vào mục Giao Dịch Trung Gian
-            if (platformName.includes("Giao Dịch Trung Gian")) {
-                const list = document.getElementById('sub-list-container');
-                // Chèn bảng Điều khoản & 2 nút liên hệ vào chính cái Modal cũ
-                list.innerHTML = `
-                    <div style="padding: 15px; text-align: left; font-family: sans-serif;">
-                        <h3 style="text-align:center; color:#e67e22; margin-top:0;">🛡️ ĐIỀU KHOẢN GDTG</h3>
-                        <div style="background:#fff3e0; padding:10px; border-radius:8px; font-size:13px; color:#666; margin-bottom:15px; border-left:4px solid #e67e22;">
-                            <p style="margin:5px 0;">1. Admin chỉ giữ tiền, không bảo hành acc sau khi giao dịch hoàn tất.</p>
-                            <p style="margin:5px 0;">2. Bên mua check kỹ thông tin trước khi xác nhận để Admin giải ngân.</p>
-                            <p style="margin:5px 0;">3. Phí GDTG tính theo biểu phí niêm yết của SNT Store.</p>
-                            <p style="margin:5px 0; font-weight:bold; color:red;">* Cảnh Báo: Chỉ Giao Dịch Đúng Facebook Hoặc Zalo Admin Từ Liên Kết Trên Website</p>
-                        </div>
-                        
-                        <h4 style="text-align:center; font-size:14px; margin-bottom:10px;">Nếu Bạn Đồng Ý Với Điều Khaonr.Vui Lòng Liên Hệ:</h4>
-                        
-                        <a href="https://zalo.me/0966181924" target="_blank" 
-                           style="display:block; text-decoration:none; text-align:center; padding:12px; background:#0068ff; color:#fff; border-radius:8px; font-weight:bold; margin-bottom:10px;">
-                           💬 Zalo Admin GDTG
-                        </a>
-                        <a href="https://facebook.com/ntien210" target="_blank" 
-                           style="display:block; text-decoration:none; text-align:center; padding:12px; background:#1877f2; color:#fff; border-radius:8px; font-weight:bold;">
-                           👤 Facebook Admin GDTG
-                        </a>
-                        <button onclick="closeAllModals()" style="width:100%; margin-top:15px; background:none; border:none; color:#aaa; cursor:pointer; font-size:12px;">Quay lại</button>
-                    </div>
-                `;
-                return; // Dừng lại, không mở modal-pay
-            }
-
-            // CÁC MỤC KHÁC (YouTube, Netflix...): Chạy bình thường
-            tempName = name; tempPrice = price;
-            document.getElementById('display-pay-price').innerText = price;
-            document.getElementById('modal-sub').style.display = 'none';
-            document.getElementById('modal-pay').style.display = 'flex';
-        }
-
-        function handleFinish() {
-            const cName = document.getElementById('cust-name').value;
-            const cInfo = document.getElementById('cust-info').value;
-            if(!cName || !cInfo) return alert("Vui lòng điền đủ thông tin!");
-            const finalStr = `--- ĐƠN HÀNG SNT STORE ---\nSản phẩm: ${tempName}\nGiá: ${tempPrice}\nKhách: ${cName}\nLiên hệ: ${cInfo}\nTrạng thái: Đã CK (Vui lòng gửi kèm ảnh bill)`;
-            document.getElementById('copy-box').value = finalStr;
-            document.getElementById('modal-pay').style.display = 'none';
-            document.getElementById('modal-final').style.display = 'flex';
-        }
-
-        function copyAndGoToZalo() {
-            const box = document.getElementById('copy-box');
-            box.select(); document.execCommand('copy');
-            alert("Đã copy đơn hàng! Đang chuyển sang Zalo Admin...");
-            setTimeout(() => { window.location.href = "https://zalo.me/0966181924"; }, 800);
-        }
-
-        function closeAllModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        window.onclick = function(e) { if (e.target.className === 'modal') closeAllModals(); }
-        function closeAllModals() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        window.onclick = function(e) { if (e.target.className === 'modal') closeAllModals(); }
-    </script>
-<div id="music-control" onclick="toggleMusic()" style="position:fixed; bottom:20px; right:20px; z-index:9999; width:40px; height:40px; background:#ff4757; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; color:white; font-size:18px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-    🎵
-</div>
-
-<div style="display:none">
-    <iframe id="yt-player" width="0" height="0" 
-      src="https://youtu.be/qbX-TP_MtcQ?si=kkHKf9ExkkTCZHZC" 
-      frameborder="0" allow="autoplay">
-    </iframe>
-</div>
-
-<script>
-    function toggleMusic() {
-        var iframe = document.getElementById('yt-player');
-        var btn = document.getElementById('music-control');
-        
-        // Gửi lệnh qua iframe để phát hoặc tạm dừng
-        if (btn.innerText === "🎵") {
-            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-            btn.innerText = "🔇";
-            btn.style.background = "#333";
-        } else {
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            btn.innerText = "🎵";
-            btn.style.background = "#ff4757";
-        }
+    function renderGrid() {
+      const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+      grid.innerHTML = "";
+      Object.keys(data)
+        .filter(key => key.toLowerCase().includes(keyword) || data[key].items.some(item => item.n.toLowerCase().includes(keyword)))
+        .forEach(key => {
+          grid.innerHTML += `
+            <div class="platform-card" onclick="openSub('${escapeText(key)}')">
+              <img src="${data[key].img}" alt="${key}">
+              <p>${key}</p>
+              <small>${data[key].items.length} gói dịch vụ</small>
+            </div>`;
+        });
     }
 
-    // Thủ thuật: Khi khách click bất kỳ đâu trên web, nhạc sẽ tự kích hoạt phát
-    document.addEventListener('click', function() {
-        var iframe = document.getElementById('yt-player');
-        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    }, { once: true }); // Chỉ chạy 1 lần duy nhất khi click đầu tiên
-</script>
+    function escapeText(str) {
+      return String(str).replace(/'/g, "\\'");
+    }
+
+    renderGrid();
+
+    function toggleMenu() {
+      document.getElementById('menuList').classList.toggle('active');
+    }
+
+    function showPage(id) {
+      document.getElementById('home').classList.toggle('hidden', id !== 'home');
+      document.getElementById('support').classList.toggle('hidden', id !== 'support');
+      document.getElementById('nav-home').classList.toggle('active', id === 'home');
+      document.getElementById('nav-support').classList.toggle('active', id === 'support');
+      document.getElementById('menuList').classList.remove('active');
+      window.scrollTo(0, 0);
+    }
+
+    function openSub(key) {
+      const list = document.getElementById('sub-list-container');
+      const platform = data[key];
+      document.getElementById('display-platform-name').innerText = "Gói " + key;
+      list.innerHTML = "";
+
+      platform.items.forEach(item => {
+        const safeName = escapeText(item.n);
+        const safePrice = escapeText(item.p);
+
+        if (platform.isGallery) {
+          list.innerHTML += `
+            <div class="banner-item">
+              <img src="${item.thumb}" class="banner-img" alt="${item.n}">
+              <div class="banner-desc">
+                <div><h4>${item.n}</h4><span>${item.p}</span></div>
+                <button class="buy-now-btn" onclick="openPay('${safeName}', '${safePrice}')">Chọn</button>
+              </div>
+            </div>`;
+        } else {
+          list.innerHTML += `
+            <div class="sub-item">
+              <div class="sub-info"><h4>${item.n}</h4><span>${item.p}</span></div>
+              <button class="buy-now-btn" onclick="openPay('${safeName}', '${safePrice}')">Mua</button>
+            </div>`;
+        }
+      });
+
+      document.getElementById('modal-sub').style.display = 'flex';
+    }
+
+    function openPay(name, price) {
+      const platformName = document.getElementById('display-platform-name').innerText;
+
+      if (platformName.includes("Giao Dịch Trung Gian")) {
+        const list = document.getElementById('sub-list-container');
+        list.innerHTML = `
+          <div class="terms-box" style="max-height:58vh; overflow-y:auto; padding-right:12px;">
+            <h3 style="text-align:center; color:#ffcf7b; margin:0 0 14px;">🛡️ CHÍNH SÁCH GIAO DỊCH TRUNG GIAN</h3>
+            <p style="text-align:center; color:#ffe8bd; font-weight:900;">SNT STORE - Dịch vụ giữ tiền hộ an toàn</p>
+
+            <h4>1. Mục đích dịch vụ</h4>
+            <p>Dịch vụ Giao Dịch Trung Gian (GDTG) của SNT STORE được cung cấp nhằm hỗ trợ bên mua và bên bán giao dịch an toàn, minh bạch hơn, hạn chế rủi ro trong quá trình mua bán sản phẩm, tài khoản hoặc dịch vụ số.</p>
+            <p>SNT STORE đóng vai trò là bên thứ ba hỗ trợ giữ tiền, xác nhận giao dịch và giải ngân theo thỏa thuận giữa hai bên.</p>
+
+            <h4>2. Vai trò của SNT STORE</h4>
+            <p>SNT STORE không phải là bên mua và cũng không phải là bên bán. SNT STORE chỉ đóng vai trò trung gian giữ tiền hộ trong thời gian giao dịch đang diễn ra.</p>
+            <p>SNT STORE không trực tiếp sở hữu, kiểm soát, bảo hành hoặc cam kết chất lượng đối với sản phẩm/tài khoản/dịch vụ mà hai bên tự thỏa thuận giao dịch.</p>
+
+            <h4>3. Quy trình giao dịch</h4>
+            <p>Quy trình GDTG cơ bản như sau:</p>
+            <p>1. Bên mua và bên bán tự thỏa thuận về sản phẩm, giá tiền, điều kiện giao dịch và cách bàn giao.</p>
+            <p>2. Bên mua chuyển tiền cho SNT STORE theo thông tin thanh toán chính thức.</p>
+            <p>3. SNT STORE xác nhận đã nhận tiền và thông báo cho bên bán tiến hành bàn giao.</p>
+            <p>4. Bên bán giao thông tin/sản phẩm/dịch vụ cho bên mua theo thỏa thuận.</p>
+            <p>5. Bên mua kiểm tra kỹ sản phẩm trước khi xác nhận hoàn tất.</p>
+            <p>6. Sau khi bên mua xác nhận đã nhận đúng và đủ, SNT STORE giải ngân tiền cho bên bán.</p>
+
+            <h4>4. Phạm vi trách nhiệm của SNT STORE</h4>
+            <p>SNT STORE chịu trách nhiệm trong phạm vi:</p>
+            <p>• Xác nhận số tiền bên mua đã chuyển.</p>
+            <p>• Giữ tiền trong thời gian giao dịch chưa hoàn tất.</p>
+            <p>• Chỉ giải ngân khi có xác nhận hoàn tất từ bên mua hoặc theo bằng chứng/thỏa thuận hợp lệ giữa hai bên.</p>
+            <p>• Hỗ trợ trao đổi thông tin khi giao dịch đang trong quá trình xử lý.</p>
+
+            <h4>5. Giới hạn trách nhiệm sau khi hoàn tất</h4>
+            <p>Sau khi bên mua đã kiểm tra và xác nhận giao dịch hoàn tất, SNT STORE xem như nhiệm vụ giữ tiền hộ đã hoàn thành.</p>
+            <p>Từ thời điểm giao dịch hoàn tất và tiền đã được giải ngân cho bên bán, SNT STORE không chịu trách nhiệm đối với các vấn đề phát sinh sau đó, bao gồm nhưng không giới hạn:</p>
+            <p>• Tài khoản bị thu hồi, bị lấy lại hoặc bị thay đổi thông tin.</p>
+            <p>• Sản phẩm/dịch vụ phát sinh lỗi sau thời điểm xác nhận hoàn tất.</p>
+            <p>• Tranh chấp mới phát sinh sau khi hai bên đã xác nhận hoàn tất giao dịch.</p>
+            <p>• Các rủi ro do bên mua không kiểm tra kỹ trước khi xác nhận.</p>
+
+            <h4>6. Trách nhiệm của bên mua</h4>
+            <p>Bên mua có trách nhiệm kiểm tra kỹ toàn bộ thông tin sản phẩm/tài khoản/dịch vụ trước khi xác nhận hoàn tất.</p>
+            <p>Không nên xác nhận hoàn tất nếu chưa nhận đủ sản phẩm, chưa đăng nhập được, chưa đổi thông tin cần thiết hoặc còn nghi ngờ về giao dịch.</p>
+            <p>Khi đã xác nhận hoàn tất, bên mua đồng ý rằng SNT STORE được phép giải ngân tiền cho bên bán.</p>
+
+            <h4>7. Trách nhiệm của bên bán</h4>
+            <p>Bên bán có trách nhiệm cung cấp đúng sản phẩm, đúng thông tin, đúng cam kết đã thỏa thuận với bên mua.</p>
+            <p>Nếu sản phẩm không đúng mô tả hoặc cố tình gian lận trong quá trình giao dịch, SNT STORE có quyền tạm giữ tiền và yêu cầu hai bên cung cấp bằng chứng để xử lý.</p>
+
+            <h4>8. Trường hợp tạm giữ hoặc từ chối giải ngân</h4>
+            <p>SNT STORE có quyền tạm giữ tiền nếu phát hiện dấu hiệu bất thường như: thông tin giao dịch không rõ ràng, hai bên có tranh chấp, bên bán giao sai sản phẩm, bên mua chưa xác nhận hoặc có bằng chứng cho thấy giao dịch chưa hoàn tất.</p>
+            <p>Việc xử lý sẽ dựa trên tin nhắn, ảnh chụp, video, bill chuyển khoản hoặc bằng chứng hợp lệ từ hai bên.</p>
+
+            <h4>9. Các trường hợp SNT STORE từ chối hỗ trợ</h4>
+            <p>SNT STORE có thể từ chối hỗ trợ nếu người dùng giao dịch ngoài kênh chính thức, tự ý chuyển tiền trực tiếp cho bên bán, cung cấp thông tin sai sự thật, cố tình gian lận hoặc phát sinh tranh chấp sau khi đã xác nhận hoàn tất.</p>
+
+            <h4>10. Cảnh báo quan trọng</h4>
+            <p style="font-weight:900; color:#ff9cae;">Chỉ giao dịch qua đúng Zalo/Facebook chính thức được gắn trên website SNT STORE. Mọi giao dịch qua tài khoản giả mạo, link lạ hoặc người tự xưng là admin sẽ không được hỗ trợ.</p>
+            <p>Bên mua nên quay màn hình quá trình nhận và kiểm tra sản phẩm để có bằng chứng nếu xảy ra tranh chấp.</p>
+
+            <h4>11. Xác nhận đồng ý</h4>
+            <p>Khi sử dụng dịch vụ GDTG của SNT STORE, người dùng được xem là đã đọc, hiểu và đồng ý với toàn bộ chính sách trên.</p>
+          </div>
+          <div style="display:grid; gap:10px; margin-top:14px;">
+            <a class="btn-primary" href="https://zalo.me/0966181924" target="_blank">✅ Tôi đồng ý - Liên hệ Zalo Admin</a>
+            <a class="btn-ghost" href="https://facebook.com/ntien210" target="_blank">👤 Liên hệ Facebook Admin</a>
+            <button onclick="openSub('Giao Dịch Trung Gian')" class="btn-ghost" style="border:none;">Quay lại bảng phí</button>
+          </div>`;
+        return;
+      }
+
+      tempName = name;
+      tempPrice = price;
+      document.getElementById('display-pay-price').innerText = price;
+      document.getElementById('modal-sub').style.display = 'none';
+      document.getElementById('modal-pay').style.display = 'flex';
+    }
+
+    function handleFinish() {
+      const cName = document.getElementById('cust-name').value.trim();
+      const cInfo = document.getElementById('cust-info').value.trim();
+
+      if (!cName || !cInfo) {
+        alert("Vui lòng điền đủ thông tin!");
+        return;
+      }
+
+      const finalStr = `--- ĐƠN HÀNG SNT STORE ---\nSản phẩm: ${tempName}\nGiá: ${tempPrice}\nKhách: ${cName}\nLiên hệ: ${cInfo}\nTrạng thái: Đã CK (Vui lòng gửi kèm ảnh bill)`;
+      document.getElementById('copy-box').value = finalStr;
+      document.getElementById('modal-pay').style.display = 'none';
+      document.getElementById('modal-final').style.display = 'flex';
+    }
+
+    function copyAndGoToZalo() {
+      const box = document.getElementById('copy-box');
+      box.select();
+      document.execCommand('copy');
+      alert("Đã copy đơn hàng! Đang chuyển sang Zalo Admin...");
+      setTimeout(() => { window.location.href = "https://zalo.me/0966181924"; }, 800);
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    }
+
+    window.onclick = function(e) {
+      if (e.target.classList && e.target.classList.contains('modal')) closeAllModals();
+    };
+  </script>
 </body>
 </html>
-  
